@@ -6,7 +6,7 @@ const UserList = (props) => {
   return (
     <ul className={styles["user-list"]}>
       {props.usersCreated.map((user) => (
-        <User>
+        <User key={user.id}>
           {user.name} ({user.age} years old)
         </User>
       ))}
