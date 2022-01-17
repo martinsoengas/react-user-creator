@@ -5,28 +5,33 @@ import styles from "./App.module.css";
 
 function App() {
   const [users, setUsers] = useState([]);
+  const [showUserList, setShowUserList] = useState(false);
 
-  const addUserHandler = (enteredUser) => {
+  const userListDisplay = styles["users-list"];
+
+  const addUserHandler = (enteredName, enteredAge) => {
+    setShowUserList(true);
     setUsers((prevUsers) => {
-      const updatedUsers = [...prevUsers];
-      updatedUsers.unshift({
-        name: enteredUser[0],
-        age: enteredUser[1],
-        id: Math.random().toString(),
-      });
-      return updatedUsers;
+      return [
+        ...prevUsers,
+        { name: enteredName, age: enteredAge, id: Math.random().toString() },
+      ];
     });
   };
 
   return (
-    <div>
+    <>
       <section className={styles["users-form"]}>
         <UserInput onAddUser={addUserHandler} />
       </section>
-      <section className={styles["users-form"]}>
+      <section
+        className={`${styles["users-form"]} ${
+          !showUserList ? userListDisplay : ""
+        }`}
+      >
         <UserList usersCreated={users} />
       </section>
-    </div>
+    </>
   );
 }
 
